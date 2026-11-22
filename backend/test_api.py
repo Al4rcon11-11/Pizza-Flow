@@ -1,6 +1,9 @@
 """Pruebas de aceptación automatizadas para la API local de Pizza-Flow."""
 
 import json
+import hashlib
+import secrets
+import time
 from pathlib import Path
 import sqlite3
 import sys
@@ -38,6 +41,18 @@ class PizzaFlowApiTests(unittest.TestCase):
                 "INSERT INTO delivery_zones (id, pizzeria_id, name, fee_cop) "
                 "VALUES (1, 1, 'Zona de prueba', 4000)"
             )
+            # These existing order scenarios now run as authenticated staff.
+            # The fixture is isolated and is not a login/password test.
+            cls.session_token = secrets.token_urlsafe(32)
+            cls.csrf_token = secrets.token_urlsafe(32)
+            db.execute(
+                "INSERT INTO staff_users (id,pizzeria_id,username,name,password_hash,role) "
+                "VALUES (1,1,'recepcion','Recepcionista de prueba','unused-fixture','RECEPTIONIST')"
+            )
+            db.execute(
+                "INSERT INTO staff_sessions (token_hash,user_id,csrf_token,expires_at) VALUES (?,1,?,?)",
+                (hashlib.sha256(cls.session_token.encode()).hexdigest(), cls.csrf_token, int(time.time())+3600),
+            )
 
         cls.server = ThreadingHTTPServer(("127.0.0.1", 0), api.APIHandler)
         cls.server_thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
@@ -57,7 +72,8 @@ class PizzaFlowApiTests(unittest.TestCase):
         request = Request(
             self.base_url + path,
             data=data,
-            headers={"Content-Type": "application/json"},
+            headers={"Content-Type": "application/json", "X-PizzaFlow": "1",
+                     "X-CSRF-Token": self.csrf_token, "Cookie": f"pizzaflow_session={self.session_token}"},
             method=method,
         )
         try:

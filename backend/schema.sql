@@ -95,3 +95,30 @@ CREATE TABLE IF NOT EXISTS order_status_history (
 CREATE INDEX IF NOT EXISTS idx_customers_phone ON customers(pizzeria_id, phone);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(pizzeria_id, order_status, created_at);
 CREATE INDEX IF NOT EXISTS idx_commands_status ON dispatch_commands(command_status, sent_at);
+
+-- Cuentas del personal; los clientes no necesitan una cuenta para llamar o escribir.
+CREATE TABLE IF NOT EXISTS staff_users (
+    id INTEGER PRIMARY KEY,
+    pizzeria_id INTEGER NOT NULL REFERENCES pizzerias(id),
+    username TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL CHECK (role IN ('ADMIN', 'RECEPTIONIST')),
+    active INTEGER NOT NULL DEFAULT 1 CHECK (active IN (0, 1)),
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS staff_sessions (
+    token_hash TEXT PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES staff_users(id) ON DELETE CASCADE,
+    csrf_token TEXT NOT NULL,
+    expires_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_staff_sessions_user ON staff_sessions(user_id);
+CREATE TABLE IF NOT EXISTS admin_audit (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES staff_users(id),
+    action TEXT NOT NULL,
+    entity_id INTEGER NOT NULL,
+    detail TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

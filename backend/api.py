@@ -1,4 +1,4 @@
-"""Backend demonstrator for the Pizza-Flow MVP. No graphical interface or external packages."""
+"""Local Pizza-Flow application with staff sessions and administrator permissions."""
 from datetime import datetime, timezone
 from decimal import Decimal, ROUND_HALF_UP
 from contextlib import contextmanager
@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import sqlite3
 from urllib.parse import parse_qs, urlparse
+from security import StaffMixin, AccessError, public_user
 
 ROOT = Path(__file__).resolve().parent
 DB_PATH = ROOT / "pizzaflow.sqlite3"
@@ -40,25 +41,50 @@ def money_tax(subtotal_cop, rate_pct):
     return int(amount.quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
 
-class APIHandler(BaseHTTPRequestHandler):
-    def send_json(self, status, data):
+class APIHandler(StaffMixin, BaseHTTPRequestHandler):
+    connect = staticmethod(connect)
+
+    def allowed_origins(self):
+        return {f'http://{host}:{port}' for host in ('127.0.0.1', 'localhost')
+                for port in (self.server.server_port, 5500)}
+
+    def check_origin(self):
+        hosts = {f'{host}:{self.server.server_port}' for host in ('127.0.0.1', 'localhost')}
+        if self.headers.get('Host') not in hosts:
+            raise AccessError(403, 'Accede usando la dirección local de Pizza-Flow.')
+        origin = self.headers.get('Origin')
+        if origin and origin not in self.allowed_origins():
+            raise AccessError(403, 'Origen no permitido. Abre http://127.0.0.1:8000.')
+
+    def cors_headers(self):
+        origin = self.headers.get('Origin')
+        if origin in self.allowed_origins():
+            self.send_header('Access-Control-Allow-Origin', origin)
+            self.send_header('Access-Control-Allow-Credentials', 'true')
+            self.send_header('Vary', 'Origin')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, X-PizzaFlow, X-CSRF-Token')
+
+    def send_json(self, status, data, cookie=None):
         body = json.dumps(data, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
-        # CORS de demostración para permitir que el HTML local consuma esta API.
-        # No usar este permiso abierto como configuración de producción.
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.cors_headers()
+        self.send_header('Cache-Control', 'no-store')
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        if cookie:
+            self.send_header('Set-Cookie', cookie)
         self.end_headers()
         self.wfile.write(body)
 
     def do_OPTIONS(self):
+        try:
+            self.check_origin()
+        except AccessError as exc:
+            return self.send_json(exc.status, {'error': str(exc)})
         self.send_response(204)
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.cors_headers()
         self.end_headers()
 
     def read_json(self):
@@ -66,18 +92,41 @@ class APIHandler(BaseHTTPRequestHandler):
         if length <= 0 or length > 1_000_000:
             raise ValueError("El cuerpo JSON está vacío o supera 1 MB.")
         try:
-            return json.loads(self.rfile.read(length))
-        except json.JSONDecodeError as exc:
+            body = json.loads(self.rfile.read(length))
+            if not isinstance(body, dict):
+                raise ValueError('El cuerpo JSON debe ser un objeto.')
+            return body
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             raise ValueError("El cuerpo no contiene JSON válido.") from exc
 
     def do_GET(self):
         parsed = urlparse(self.path)
         query = parse_qs(parsed.query)
         try:
+            self.check_origin()
+            if parsed.path in ('/', '/Pizza-Flow_App.html'):
+                content = (ROOT.parent / 'Pizza-Flow_App.html').read_bytes()
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Content-Length', str(len(content)))
+                self.send_header('Cache-Control', 'no-store')
+                self.send_header('X-Content-Type-Options', 'nosniff')
+                self.send_header('X-Frame-Options', 'DENY')
+                self.end_headers()
+                return self.wfile.write(content)
             if parsed.path == "/health":
                 return self.send_json(200, {"status": "ok", "prototype": "Pizza-Flow backend"})
+            if parsed.path == '/auth/status':
+                with connect() as db:
+                    configured = db.execute("SELECT 1 FROM staff_users WHERE role='ADMIN'").fetchone() is not None
+                return self.send_json(200, {'configured': configured})
+            self.authenticate()
+            if parsed.path == '/auth/me':
+                return self.send_json(200, {'user': public_user(self.user), 'csrf_token': self.user['csrf_token']})
+            if parsed.path in ('/admin/products', '/admin/zones', '/admin/users'):
+                return self.admin_list(parsed.path.rsplit('/', 1)[1])
             if parsed.path == "/products":
-                pizzeria_id = self.require_query_int(query, "pizzeria_id")
+                pizzeria_id = self.own_pizzeria(self.require_query_int(query, "pizzeria_id"))
                 with connect() as db:
                     rows = db.execute(
                         "SELECT id, name, price_cop, tax_rate_pct FROM products "
@@ -85,7 +134,7 @@ class APIHandler(BaseHTTPRequestHandler):
                     ).fetchall()
                 return self.send_json(200, [as_dict(row) for row in rows])
             if parsed.path == "/zones":
-                pizzeria_id = self.require_query_int(query, "pizzeria_id")
+                pizzeria_id = self.own_pizzeria(self.require_query_int(query, "pizzeria_id"))
                 with connect() as db:
                     rows = db.execute(
                         "SELECT id, name, fee_cop FROM delivery_zones "
@@ -93,7 +142,7 @@ class APIHandler(BaseHTTPRequestHandler):
                     ).fetchall()
                 return self.send_json(200, [as_dict(row) for row in rows])
             if parsed.path == "/clients":
-                pizzeria_id = self.require_query_int(query, "pizzeria_id")
+                pizzeria_id = self.own_pizzeria(self.require_query_int(query, "pizzeria_id"))
                 phone = (query.get("phone") or [""])[0].strip()
                 if not phone:
                     raise ValueError("Indica el teléfono del cliente.")
@@ -107,6 +156,7 @@ class APIHandler(BaseHTTPRequestHandler):
                 return self.send_json(200, as_dict(row))
             if parsed.path.startswith("/orders/"):
                 order_id = self.path_id(parsed.path, "/orders/")
+                self.own_order(order_id)
                 with connect() as db:
                     order = db.execute("SELECT * FROM orders WHERE id = ?", (order_id,)).fetchone()
                     if order is None:
@@ -129,15 +179,38 @@ class APIHandler(BaseHTTPRequestHandler):
                 result["status_history"] = [as_dict(row) for row in history]
                 return self.send_json(200, result)
             return self.send_json(404, {"error": "Ruta no encontrada."})
+        except AccessError as exc:
+            return self.send_json(exc.status, {'error': str(exc)})
         except ValueError as exc:
             return self.send_json(400, {"error": str(exc)})
-        except sqlite3.Error as exc:
-            return self.send_json(400, {"error": str(exc)})
+        except sqlite3.Error:
+            return self.send_json(503, {"error": 'No se pudo consultar la base de datos. Reintenta en un momento.'})
 
     def do_POST(self):
         try:
+            self.check_origin()
+            if self.headers.get('X-PizzaFlow') != '1' or self.headers.get_content_type() != 'application/json':
+                raise AccessError(403, 'Solicitud no permitida. Usa la aplicación Pizza-Flow.')
             body = self.read_json()
             path = urlparse(self.path).path
+            if path == '/auth/login':
+                return self.login(body)
+            self.authenticate(admin=path.startswith('/admin/'), mutation=True)
+            if path == '/auth/logout':
+                return self.logout()
+            if path == '/auth/password':
+                return self.change_password(body)
+            if path in ('/admin/products', '/admin/zones'):
+                return self.save_catalog(path.rsplit('/', 1)[1], body)
+            if path == '/admin/users':
+                return self.save_receptionist(body)
+            if path == '/admin/users/update':
+                return self.update_receptionist(body)
+            body['created_by'] = self.user['name']
+            body['changed_by'] = self.user['name']
+            body['confirmed_by'] = self.user['name']
+            if path.startswith('/orders/'):
+                self.own_order(self.path_id(path, '/orders/', '/' + path.rsplit('/', 1)[1]))
             if path == "/orders":
                 return self.create_order(body)
             if path.startswith("/orders/") and path.endswith("/send-command"):
@@ -150,15 +223,17 @@ class APIHandler(BaseHTTPRequestHandler):
                 order_id = self.path_id(path, "/orders/", "/no-response")
                 return self.mark_no_response(order_id, body)
             return self.send_json(404, {"error": "Ruta no encontrada."})
+        except AccessError as exc:
+            return self.send_json(exc.status, {'error': str(exc)})
         except ValueError as exc:
             return self.send_json(400, {"error": str(exc)})
-        except sqlite3.IntegrityError as exc:
-            return self.send_json(409, {"error": f"Conflicto con los datos: {exc}"})
-        except sqlite3.Error as exc:
-            return self.send_json(400, {"error": str(exc)})
+        except sqlite3.IntegrityError:
+            return self.send_json(409, {"error": 'Ya existe un registro con ese nombre, teléfono o usuario, o los datos entran en conflicto.'})
+        except sqlite3.Error:
+            return self.send_json(503, {"error": 'No se pudo guardar el cambio. Reintenta en un momento.'})
 
     def create_order(self, body):
-        pizzeria_id = self.require_int(body, "pizzeria_id")
+        pizzeria_id = self.own_pizzeria(self.require_int(body, "pizzeria_id"))
         if body.get("customer_accepted") is not True:
             raise ValueError("Registra la aceptación del cliente antes de guardar el pedido.")
         new_customer = body.get("new_customer")
@@ -225,6 +300,8 @@ class APIHandler(BaseHTTPRequestHandler):
                 lines.append((product, quantity, line_subtotal, line_tax))
             delivery_fee = zone["fee_cop"]
             total = subtotal + tax_total + delivery_fee
+            if 'expected_total_cop' in body and self.require_int(body, 'expected_total_cop') != total:
+                raise AccessError(409, 'El catálogo o la tarifa cambiaron. Actualiza el catálogo y solicita nuevamente la aceptación del total.')
             cursor = db.execute(
                 "INSERT INTO orders (pizzeria_id, customer_id, delivery_zone_id, delivery_address, "
                 "capture_channel, payment_method, order_status, subtotal_cop, tax_total_cop, "
@@ -324,7 +401,10 @@ class APIHandler(BaseHTTPRequestHandler):
     @staticmethod
     def require_int(payload, key):
         try:
-            return int(payload[key])
+            value = payload[key]
+            if type(value) is not int and not (isinstance(value, str) and value.isascii() and value.isdigit()):
+                raise ValueError()
+            return int(value)
         except (KeyError, TypeError, ValueError) as exc:
             raise ValueError(f"{key} debe ser un número entero.") from exc
 
@@ -354,8 +434,10 @@ class APIHandler(BaseHTTPRequestHandler):
 
 
 def main():
+    with connect() as db:
+        db.executescript((ROOT / 'schema.sql').read_text(encoding='utf-8-sig'))
     server = ThreadingHTTPServer(("127.0.0.1", 8000), APIHandler)
-    print("Pizza-Flow API disponible en http://127.0.0.1:8000")
+    print("Pizza-Flow disponible en http://127.0.0.1:8000 (página y API)")
     print("Presiona Ctrl+C para detener el servidor.")
     try:
         server.serve_forever()
