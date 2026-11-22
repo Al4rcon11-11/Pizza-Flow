@@ -8,32 +8,54 @@
     :root{--ink:#202124;--muted:#667085;--line:#d9dee7;--paper:#fff;--canvas:#f3f5f8;--brand:#b9412e;--brand-dark:#8f2d21;--soft:#fff1ed;--green:#237a52;--green-soft:#e9f7ef;--amber:#8c5c00;--amber-soft:#fff6df}
     *{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font:15px/1.45 Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
     .app{max-width:1080px;margin:auto;padding:22px}header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border-radius:13px;background:var(--brand);color:white;display:grid;place-items:center;font-size:22px;font-weight:bold}h1{font-size:20px;margin:0}header p{margin:2px 0 0;color:var(--muted);font-size:13px}.badge{border:1px solid var(--line);border-radius:30px;background:white;padding:7px 11px;font-size:12px;color:var(--muted)}
-    .layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}.main,.side{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 16px #172b4d0a}.main{padding:22px}.side{padding:18px;position:sticky;top:16px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 24px;padding:0;list-style:none}.step{border-bottom:3px solid var(--line);padding:0 2px 10px;color:var(--muted);font-size:13px}.step b{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#edf0f4;margin-right:5px;font-size:12px}.step.active{border-color:var(--brand);color:var(--brand-dark);font-weight:bold}.step.active b,.step.done b{background:var(--brand);color:white}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}.main{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 16px #172b4d0a}.main{padding:22px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 24px;padding:0;list-style:none}.step{border-bottom:3px solid var(--line);padding:0 2px 10px;color:var(--muted);font-size:13px}.step b{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#edf0f4;margin-right:5px;font-size:12px}.step.active{border-color:var(--brand);color:var(--brand-dark);font-weight:bold}.step.active b,.step.done b{background:var(--brand);color:white}
     h2{font-size:21px;margin:0 0 5px}.intro{margin:0 0 18px;color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{display:block;font-size:13px;font-weight:bold;margin-bottom:6px}.field{margin-bottom:14px}input,select{width:100%;border:1px solid #c9d0da;border-radius:9px;padding:11px 12px;background:white;color:var(--ink)}input:focus,select:focus{outline:3px solid #b9412e22;border-color:var(--brand)}.checkrow{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:#414957;margin:3px 0 18px}.checkrow input{width:auto;margin:3px 0 0}.notice{background:#f5f7fa;border-radius:9px;padding:11px 12px;color:#586273;font-size:13px;margin:14px 0}.notice.warn{background:var(--amber-soft);color:#654600}.notice.success{background:var(--green-soft);color:#17613f}.notice.error{background:#fff0f0;color:#8b2020;border:1px solid #f0c8c8}
     .menu{display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:12px}.item strong{display:block;font-size:14px}.item small{color:var(--muted)}.item-right{display:flex;align-items:center;gap:10px;white-space:nowrap}.qty{border:1px solid var(--line);background:white;border-radius:8px;padding:5px 9px;color:var(--brand-dark);font-weight:bold}.pay-options{display:flex;gap:8px;flex-wrap:wrap}.choice{border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:white;color:#374151}.choice.selected{border-color:var(--brand);background:var(--soft);color:var(--brand-dark);font-weight:bold}.actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.btn{border:1px solid var(--line);background:white;border-radius:9px;padding:10px 15px;font-weight:bold;color:#384152}.btn.primary{background:var(--brand);border-color:var(--brand);color:white}.btn.primary:hover{background:var(--brand-dark)}.btn:disabled{opacity:.45;cursor:not-allowed}.hidden{display:none!important}
-    .summary-title{font-size:14px;margin:0 0 12px}.summary-line{display:flex;justify-content:space-between;gap:12px;margin:9px 0;color:#4b5563;font-size:13px}.summary-line.total{border-top:1px solid var(--line);padding-top:12px;margin-top:14px;color:var(--ink);font-weight:bold;font-size:17px}.summary-empty{color:var(--muted);font-size:13px}.side h3{font-size:15px;margin:20px 0 8px}.side h3:first-child{margin-top:0}.side p,.side li{font-size:13px;color:#5b6472}.side ul{padding-left:18px;margin:7px 0}.order-result{border:1px solid var(--line);border-radius:12px;padding:15px;margin:14px 0}.order-result .id{color:var(--muted);font-size:12px}.order-result h3{margin:5px 0 10px}.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.state{display:inline-block;border-radius:30px;padding:5px 9px;background:var(--amber-soft);color:var(--amber);font-size:12px;font-weight:bold}.state.ok{background:var(--green-soft);color:var(--green)}footer{text-align:center;color:var(--muted);font-size:12px;padding:18px 0 6px}
-    @media(max-width:760px){.app{padding:14px}.layout{grid-template-columns:1fr}.side{position:static;order:-1}.main{padding:17px}.grid{grid-template-columns:1fr}.steps{gap:4px}.step{font-size:11px}.step b{display:block;margin-bottom:5px}}
+    .summary-line{display:flex;justify-content:space-between;gap:12px;margin:9px 0;color:#4b5563;font-size:13px}.summary-line.total{border-top:1px solid var(--line);padding-top:12px;margin-top:14px;color:var(--ink);font-weight:bold;font-size:17px}.order-result{border:1px solid var(--line);border-radius:12px;padding:15px;margin:14px 0}.order-result .id{color:var(--muted);font-size:12px}.order-result h3{margin:5px 0 10px}.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.state{display:inline-block;border-radius:30px;padding:5px 9px;background:var(--amber-soft);color:var(--amber);font-size:12px;font-weight:bold}.state.ok{background:var(--green-soft);color:var(--green)}footer{text-align:center;color:var(--muted);font-size:12px;padding:18px 0 6px}
+    @media(max-width:760px){.app{padding:14px}.layout{grid-template-columns:1fr}.main{padding:17px}.grid{grid-template-columns:1fr}.steps{gap:4px}.step{font-size:11px}.step b{display:block;margin-bottom:5px}}
+
+    .login-card{max-width:460px;margin:48px auto;padding:28px}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}.toolbar .identity{margin-right:auto;color:var(--muted)}.toolbar button[aria-pressed="true"]{background:var(--soft);border-color:var(--brand);color:var(--brand-dark)}.admin-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:24px;margin-top:20px}.catalog-list{display:grid;gap:10px;align-content:start}.catalog-row{border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:14px}.catalog-row p{margin:4px 0;color:var(--muted);font-size:13px}.editor{padding:18px;border:1px solid var(--line);border-radius:12px;background:#fafbfc;align-self:start}.editor h3{margin:0 0 16px}.status-inactive{color:#775b20}.status-active{color:var(--green)}.full{width:100%}.hint{font-size:13px;color:var(--muted)}.tabbar{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.panel-title{display:flex;justify-content:space-between;align-items:start;gap:12px}.btn:focus-visible{outline:3px solid #b9412e66;outline-offset:2px}button[aria-pressed="true"]{border-color:var(--brand)}
+    @media(max-width:760px){header{flex-wrap:wrap}.admin-grid{grid-template-columns:1fr}.login-card{margin:20px auto}.toolbar .identity{width:100%}.catalog-row{align-items:start;flex-wrap:wrap}.panel-title{flex-wrap:wrap}}
   </style>
 </head>
 <body>
 <div class="app">
-  <header><div class="brand"><div class="logo">P</div><div><h1>Pizza-Flow</h1><p>Registro y confirmación de pedidos</p></div></div><span class="badge" id="connection">Conectando con la API...</span></header>
-  <div class="layout">
-    <main class="main">
+  <header><div class="brand"><div class="logo">P</div><div><h1>Pizza-Flow</h1><p>Registro y confirmación de pedidos</p></div></div><span class="badge" id="connection">Conectando...</span></header>
+
+  <div id="message" class="hidden" role="status" aria-live="polite"></div>
+  <section id="loginPanel" class="main login-card">
+    <h2>Bienvenido a Pizza-Flow</h2><p class="intro">Inicia sesión con tu cuenta del equipo.</p>
+    <form id="loginForm" onsubmit="login(event)">
+      <div class="field"><label for="loginUser">Usuario</label><input id="loginUser" autocomplete="username" required minlength="3" maxlength="40" autocapitalize="none" spellcheck="false"></div>
+      <div class="field"><label for="loginPassword">Contraseña</label><input id="loginPassword" type="password" autocomplete="current-password" required maxlength="128"></div>
+      <button class="btn primary full" id="loginBtn" type="submit">Iniciar sesión</button>
+    </form>
+    <p class="hint">El administrador gestiona productos, tarifas y cuentas. El recepcionista registra los pedidos.</p>
+    <div id="setupHint" class="notice hidden">Primera apertura: crea tu cuenta desde la terminal de la carpeta backend con <code>python setup_admin.py</code>. Después vuelve a cargar esta página.</div>
+  </section>
+  <div id="staffToolbar" class="toolbar hidden" aria-label="Navegación del equipo">
+    <span id="staffIdentity" class="identity"></span>
+    <button class="btn" id="ordersNav" onclick="openSection('orders')" aria-pressed="true">Pedidos</button>
+    <button class="btn hidden" id="adminNav" onclick="openSection('admin')" aria-pressed="false">Administración</button>
+    <button class="btn" id="accountNav" onclick="openSection('account')" aria-pressed="false">Mi cuenta</button>
+    <button class="btn" id="logoutBtn" onclick="logout()">Cerrar sesión</button>
+  </div>
+  <div id="workspace" class="layout hidden">
+    <main class="main" id="ordersPanel">
       <ol class="steps"><li class="step active" id="step1"><b>1</b>Cliente</li><li class="step" id="step2"><b>2</b>Pedido y pago</li><li class="step" id="step3"><b>3</b>Confirmación local</li></ol>
-      <div id="message" class="hidden" role="status"></div>
       <section id="screen1">
         <h2>Identificar al cliente</h2><p class="intro">Busca por teléfono. Si no existe, escribe sus datos; se guardarán cuando acepte el pedido.</p>
         <div class="field"><label for="phone">Teléfono</label><input id="phone" placeholder="Ej. 300 000 0000" autocomplete="tel"></div>
-        <div class="grid"><div class="field"><label for="name">Nombre</label><input id="name" placeholder="Nombre del cliente" autocomplete="name"></div><div class="field"><label for="captureChannel">Cómo llegó el pedido</label><select id="captureChannel"><option value="PHONE">Llamada telefónica</option><option value="WHATSAPP">WhatsApp</option></select></div></div>
+        <div class="grid"><div class="field"><label for="name">Nombre</label><input id="name" placeholder="Nombre del cliente" autocomplete="name"></div><div class="field"><label for="captureChannel">Contacto del cliente con la pizzería</label><select id="captureChannel"><option value="PHONE">Llamada telefónica</option><option value="WHATSAPP">WhatsApp</option></select></div></div>
         <div class="notice">El sistema buscará el número en la base de datos. Si es un cliente nuevo, no lo guardará hasta que acepte el pedido.</div>
         <div class="actions"><span></span><button class="btn primary" id="clientBtn" onclick="identifyClient()">Buscar o registrar cliente</button></div>
       </section>
       <section id="screen2" class="hidden">
-        <h2>Tomar y calcular el pedido</h2><p class="intro">Los productos, precios y zonas se cargan desde la API.</p>
-        <div id="productList" class="menu"></div>
+        <h2>Tomar y calcular el pedido</h2><p class="intro">Selecciona productos y revisa el total antes de registrar el pedido.</p>
+        <button class="btn" type="button" onclick="refreshCatalog()" style="margin-bottom:14px">Actualizar catálogo</button><div id="productList" class="menu"></div>
         <div class="grid" style="margin-top:16px"><div class="field"><label for="zone">Zona de entrega</label><select id="zone"></select></div><div class="field"><label for="address">Dirección de entrega</label><input id="address" placeholder="Dirección del cliente" autocomplete="street-address"></div></div>
         <div class="field"><label>Método de pago elegido</label><div class="pay-options"><button class="choice selected" data-payment="CASH_ON_DELIVERY" onclick="selectPay(this)">Efectivo al recibir</button><button class="choice" data-payment="DIGITAL" onclick="selectPay(this)">Pago digital / transferencia</button></div></div>
+        <div class="summary-line total"><span>Total estimado del pedido</span><span id="total" aria-live="polite">$0</span></div>
         <label class="checkrow"><input id="accepted" type="checkbox"><span>El cliente acepta el pedido y el total informado.</span></label>
         <div class="notice warn">Elegir un método no significa que el pago ya se haya recibido. El pago quedará pendiente.</div>
         <div class="actions"><button class="btn" onclick="go(1)">Volver</button><button class="btn primary" id="orderBtn" onclick="createOrder()" disabled>Registrar pedido en la base de datos</button></div>
@@ -41,29 +63,75 @@
       <section id="screen3" class="hidden">
         <h2>Enviar y confirmar la comanda</h2><p class="intro">La API registra la comunicación; no envía mensajes ni realiza llamadas externas.</p>
         <div id="orderCard" class="order-result"></div>
-        <div class="field"><label for="sendChannel">Canal usado para contactar al local</label><select id="sendChannel"><option value="WHATSAPP_MANUAL">WhatsApp (registro manual)</option><option value="PHONE">Llamada telefónica</option><option value="IN_PERSON">En persona</option></select></div>
-        <div class="field"><label for="operator">Nombre de quien registra el cambio</label><input id="operator" value="Recepcionista" placeholder="Nombre del operador"></div>
+        <div class="field"><label for="sendChannel">Medio usado para enviar la comanda al local</label><select id="sendChannel"><option value="WHATSAPP_MANUAL">WhatsApp</option><option value="PHONE">Llamada telefónica</option><option value="IN_PERSON">En persona</option></select></div>
+        <div class="field"><label for="operator">Registrado por</label><input id="operator" readonly aria-readonly="true"></div>
         <div id="sendActions" class="result-actions"><button class="btn primary" onclick="sendCommand()">Registrar envío de comanda</button></div>
         <div id="responseActions" class="result-actions hidden"><button class="btn primary" onclick="confirmLocal()">El local confirmó</button><button class="btn" onclick="noResponse()">Aún no responde</button></div>
         <div id="finalState" class="hidden"></div>
-        <div class="actions"><button class="btn" onclick="loadOrder()">Actualizar desde API</button></div>
+        <div class="actions"><button class="btn" onclick="loadOrder()">Actualizar pedido</button><button class="btn primary" onclick="newOrder()">Nuevo pedido</button></div>
       </section>
     </main>
-    <aside class="side"><h3>Resumen del pedido</h3><div id="summary" class="summary-empty">Primero identifica al cliente.</div><div class="summary-line total"><span>Total estimado</span><span id="total">$0</span></div><div class="notice">Los totales definitivos los calcula la API usando el catálogo y las tarifas guardadas.</div><h3>Alcance MVP</h3><ul><li>Buscar o registrar cliente.</li><li>Crear pedido y calcular importes.</li><li>Registrar envío y respuesta del local.</li></ul><div class="notice">El MVP termina cuando el local confirma que recibió la comanda. Preparación, entrega y reseña quedan para después.</div></aside>
+
+    <section id="adminPanel" class="main hidden">
+      <h2>Administración</h2><p class="intro">Mantén el menú, las zonas de entrega y las cuentas del equipo al día.</p>
+      <div class="tabbar" aria-label="Administración">
+        <button class="btn" id="productsTab" onclick="loadAdmin('products')" aria-pressed="true">Productos</button>
+        <button class="btn" id="zonesTab" onclick="loadAdmin('zones')" aria-pressed="false">Zonas y tarifas</button>
+        <button class="btn" id="usersTab" onclick="loadAdmin('users')" aria-pressed="false">Recepcionistas</button>
+      </div>
+      <div id="adminMessage" role="status" aria-live="polite" class="hidden"></div>
+      <div class="panel-title"><div><h3 id="adminTitle">Productos</h3><p class="hint" id="adminHint">Desactivar un producto lo retira del menú sin borrar pedidos anteriores.</p></div><button class="btn primary" id="newEntryBtn" onclick="editAdmin(null)">Nuevo producto</button></div>
+      <div class="admin-grid">
+        <div id="adminList" class="catalog-list"></div>
+        <form id="catalogForm" class="editor" onsubmit="saveCatalog(event)">
+          <h3 id="editorTitle">Nuevo producto</h3>
+          <input type="hidden" id="catalogId">
+          <div class="field"><label for="catalogName">Nombre</label><input id="catalogName" required maxlength="120"></div>
+          <div class="field"><label id="amountLabel" for="catalogAmount">Precio (COP)</label><input id="catalogAmount" type="number" required min="1" max="100000000" step="1" inputmode="numeric"></div>
+          <div class="field" id="taxField"><label for="catalogTax">Impuesto (%)</label><input id="catalogTax" type="number" min="0" max="100" step="0.01" value="0" required></div>
+          <label class="checkrow"><input id="catalogActive" type="checkbox" checked><span>Disponible para nuevos pedidos</span></label>
+          <p class="hint">Los cambios de precio se aplican a pedidos nuevos. Los pedidos guardados conservan sus importes.</p>
+          <button class="btn primary full" id="catalogSaveBtn" type="submit">Guardar</button>
+          <button class="btn full" type="button" onclick="editAdmin(null)" style="margin-top:8px">Limpiar formulario</button>
+        </form>
+        <form id="userForm" class="editor hidden" onsubmit="saveUser(event)">
+          <h3 id="userEditorTitle">Nuevo recepcionista</h3><input type="hidden" id="staffId">
+          <div class="field"><label for="staffName">Nombre</label><input id="staffName" required maxlength="100"></div>
+          <div class="field"><label for="staffUsername">Usuario</label><input id="staffUsername" required minlength="3" maxlength="40" pattern="[a-zA-Z0-9_.-]{3,40}" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+          <div class="field"><label id="staffPasswordLabel" for="staffPassword">Contraseña inicial</label><input id="staffPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" required><p class="hint">Entre 12 y 128 caracteres. El recepcionista puede cambiarla desde Mi cuenta.</p></div>
+          <label class="checkrow" id="staffActiveField"><input id="staffActive" type="checkbox" checked><span>Cuenta activa</span></label>
+          <button class="btn primary full" id="userSaveBtn" type="submit">Guardar cuenta</button>
+          <button class="btn full" type="button" onclick="editAdmin(null)" style="margin-top:8px">Limpiar formulario</button>
+        </form>
+      </div>
+    </section>
+    <section id="accountPanel" class="main hidden">
+      <h2>Mi cuenta</h2><p class="intro">Actualiza tu contraseña. Después tendrás que iniciar sesión nuevamente.</p>
+      <form id="passwordForm" onsubmit="changePassword(event)" style="max-width:440px">
+        <div class="field"><label for="currentPassword">Contraseña actual</label><input id="currentPassword" type="password" required autocomplete="current-password" maxlength="128"></div>
+        <div class="field"><label for="newPassword">Nueva contraseña</label><input id="newPassword" type="password" required autocomplete="new-password" minlength="12" maxlength="128"></div>
+        <div class="field"><label for="repeatPassword">Repite la nueva contraseña</label><input id="repeatPassword" type="password" required autocomplete="new-password" minlength="12" maxlength="128"></div>
+        <button class="btn primary" id="passwordBtn" type="submit">Cambiar contraseña</button>
+      </form>
+    </section>
+
   </div>
-  <footer>Prototipo de aprendizaje. Usa datos ficticios y una API local sin autenticación.</footer>
+  <footer>Versión local de aprendizaje. El catálogo inicial contiene datos de ejemplo.</footer>
 </div>
 <script>
 // Ajusta esta dirección si después ejecutas el backend en otro equipo o puerto.
-const API = 'http://127.0.0.1:8000';
-const PIZZERIA_ID = 1;
+const API = location.port === '8000' ? location.origin : 'http://127.0.0.1:8000';
+let PIZZERIA_ID = null, staff = null, csrfToken = '', estimatedTotal = 0;
+let adminResource = 'products', adminRows = [], adminLoading = false, adminSaving = false;
 let products = [], zones = [], client = null, clientDraft = null, order = null, quantities = {};
 const money = n => '$' + Number(n || 0).toLocaleString('es-CO');
+// Nombres breves para el catálogo de ejemplo; conserva los datos y precios originales.
+const catalogLabel = name => ({'Pizza personal (dato ficticio)':'Pizza personal','Pizza mediana (dato ficticio)':'Pizza mediana','Zona de demostracion (tarifa ficticia)':'Zona de entrega de ejemplo'}[name] || name);
 
 async function api(path, options = {}) {
-  const response = await fetch(API + path, { headers: {'Content-Type':'application/json'}, ...options });
+  const response = await fetch(API + path, { ...options, credentials:'include', headers: {'Content-Type':'application/json','X-PizzaFlow':'1','X-CSRF-Token':csrfToken} });
   let body = {}; try { body = await response.json(); } catch (_) {}
-  if (!response.ok) throw new Error(body.error || `Error API ${response.status}`);
+  if (!response.ok) { if(response.status===401 && path!=='/auth/login') clearSession(); const error=new Error(body.error || `Error ${response.status}`); error.status=response.status; throw error; }
   return body;
 }
 function showMessage(text, type='error') {
@@ -74,27 +142,29 @@ function digits(value){return value.replace(/\D/g,'');}
 
 async function loadCatalog(){
   try {
-    const health=await api('/health');
+    const selectedZone=document.getElementById('zone').value;
     [products,zones]=await Promise.all([api(`/products?pizzeria_id=${PIZZERIA_ID}`),api(`/zones?pizzeria_id=${PIZZERIA_ID}`)]);
-    products.forEach(p=>quantities[p.id]=0);
+    quantities=Object.fromEntries(products.map(p=>[p.id,quantities[p.id]||0]));
+    invalidateAcceptance();
     renderCatalog();
-    document.getElementById('connection').textContent='API conectada';
+    if(zones.some(zone=>String(zone.id)===selectedZone)){document.getElementById('zone').value=selectedZone;updateSummary();}
+    document.getElementById('connection').textContent='Sesión activa';
     document.getElementById('connection').style.color='#237a52';
   } catch(error) {
-    document.getElementById('connection').textContent='API desconectada';
+    document.getElementById('connection').textContent=staff?'Sin conexión':'Sin sesión';
     showMessage('No pude cargar el catálogo. Inicia la API y vuelve a cargar esta página. Detalle: '+error.message);
   }
 }
 function renderCatalog(){
-  document.getElementById('productList').innerHTML=products.map(p=>`<div class="item"><div><strong>${escapeHtml(p.name)}</strong><small>${money(p.price_cop)} · impuesto ${p.tax_rate_pct}%</small></div><div class="item-right"><button class="qty" onclick="changeQty(${p.id},-1)">−</button><span id="qty-${p.id}">${quantities[p.id]}</span><button class="qty" onclick="changeQty(${p.id},1)">+</button></div></div>`).join('') || '<p>No hay productos activos registrados.</p>';
-  document.getElementById('zone').innerHTML=zones.map(z=>`<option value="${z.id}">${escapeHtml(z.name)} · envío ${money(z.fee_cop)}</option>`).join('');
-  document.getElementById('zone').addEventListener('change',updateSummary);
+  document.getElementById('productList').innerHTML=products.map(p=>`<div class="item"><div><strong>${escapeHtml(catalogLabel(p.name))}</strong><small>${money(p.price_cop)} · impuesto ${p.tax_rate_pct}%</small></div><div class="item-right"><button class="qty" onclick="changeQty(${p.id},-1)">−</button><span id="qty-${p.id}">${quantities[p.id]}</span><button class="qty" onclick="changeQty(${p.id},1)">+</button></div></div>`).join('') || '<p>No hay productos activos registrados.</p>';
+  document.getElementById('zone').innerHTML=zones.map(z=>`<option value="${z.id}">${escapeHtml(catalogLabel(z.name))} · envío ${money(z.fee_cop)}</option>`).join('');
+  document.getElementById('zone').onchange=()=>{invalidateAcceptance();updateSummary();};
   updateSummary();
 }
 function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function changeQty(id,delta){quantities[id]=Math.max(0,(quantities[id]||0)+delta);document.getElementById('qty-'+id).textContent=quantities[id];updateSummary();}
+function changeQty(id,delta){quantities[id]=Math.max(0,(quantities[id]||0)+delta);document.getElementById('qty-'+id).textContent=quantities[id];invalidateAcceptance();updateSummary();}
 function cart(){return products.filter(p=>quantities[p.id]>0).map(p=>({product_id:p.id,quantity:quantities[p.id]}));}
-function selectPay(button){document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));button.classList.add('selected');}
+function selectPay(button){invalidateAcceptance();document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));button.classList.add('selected');}
 // Solo se habilita el registro cuando el cliente acepta el pedido y su total.
 document.getElementById('accepted').addEventListener('change',event=>{
   document.getElementById('orderBtn').disabled=!event.target.checked;
@@ -102,8 +172,8 @@ document.getElementById('accepted').addEventListener('change',event=>{
 function updateSummary(){
   const lines=cart().map(row=>{const p=products.find(x=>x.id===row.product_id);return {name:p.name,subtotal:p.price_cop*row.quantity,tax:Math.round(p.price_cop*row.quantity*p.tax_rate_pct/100)};});
   const subtotal=lines.reduce((s,x)=>s+x.subtotal,0),tax=lines.reduce((s,x)=>s+x.tax,0),zone=zones.find(z=>z.id===Number(document.getElementById('zone')?.value)),fee=zone?.fee_cop||0;
-  document.getElementById('summary').innerHTML=lines.length?lines.map(x=>`<div class="summary-line"><span>${escapeHtml(x.name)}</span><span>${money(x.subtotal)}</span></div>`).join('')+`<div class="summary-line"><span>Subtotal</span><span>${money(subtotal)}</span></div><div class="summary-line"><span>Impuestos estimados</span><span>${money(tax)}</span></div><div class="summary-line"><span>Envío</span><span>${money(fee)}</span></div>`:'Agrega productos para ver el cálculo.';
-  document.getElementById('total').textContent=money(subtotal+tax+fee);
+  estimatedTotal=lines.length ? subtotal+tax+fee : 0;
+  document.getElementById('total').textContent=money(estimatedTotal);
 }
 async function identifyClient(){
   clearMessage(); const phone=digits(document.getElementById('phone').value),name=document.getElementById('name').value.trim();
@@ -117,7 +187,7 @@ async function identifyClient(){
       if(!name) throw new Error('El teléfono no está registrado. Escribe el nombre para continuar.');
       client=null;clientDraft={pizzeria_id:PIZZERIA_ID,name,phone};
     }
-    showMessage(client?`Cliente encontrado: ${client.name} (registro ${client.id}).`:'Cliente nuevo. Sus datos se guardarán cuando acepte el pedido.','success'); go(2);
+    invalidateAcceptance();go(2);showMessage(client?`Cliente encontrado: ${client.name} (registro ${client.id}).`:'Cliente nuevo. Sus datos se guardarán cuando acepte el pedido.','success');
   } catch(error){showMessage('No se pudo buscar o guardar el cliente: '+error.message);}
   finally{btn.disabled=false;}
 }
@@ -131,14 +201,14 @@ async function createOrder(){
   const btn=document.getElementById('orderBtn');btn.disabled=true;
   try {
     const payment=document.querySelector('.choice.selected').dataset.payment;
-    const orderData={pizzeria_id:PIZZERIA_ID,delivery_zone_id:Number(zone),delivery_address:address,capture_channel:document.getElementById('captureChannel').value,payment_method:payment,customer_accepted:true,created_by:document.getElementById('operator').value.trim()||'Recepcionista',items};
+    const orderData={expected_total_cop:estimatedTotal,pizzeria_id:PIZZERIA_ID,delivery_zone_id:Number(zone),delivery_address:address,capture_channel:document.getElementById('captureChannel').value,payment_method:payment,customer_accepted:true,created_by:document.getElementById('operator').value.trim()||'Recepcionista',items};
     if(client) orderData.customer_id=client.id;
     else orderData.new_customer={name:clientDraft.name,phone:clientDraft.phone};
     order=await api('/orders',{method:'POST',body:JSON.stringify(orderData)});
     if(!client){client={...clientDraft,id:order.customer_id};clientDraft=null;}
     showOrderCard();go(3);showMessage(`Pedido #${order.id} guardado. Total calculado por la API: ${money(order.total_cop)}.`,'success');
-  } catch(error){showMessage('No se pudo registrar el pedido: '+error.message);}
-  finally{btn.disabled=false;}
+  } catch(error){if(error.status===409){await loadCatalog();}showMessage('No se pudo registrar el pedido: '+error.message);}
+  finally{btn.disabled=!document.getElementById('accepted').checked;}
 }
 function showOrderCard(){document.getElementById('orderCard').innerHTML=`<div class="id">Pedido guardado en la base de datos</div><h3>Pedido PF-${order.id}</h3><div class="summary-line"><span>Cliente</span><span>${escapeHtml(client?.name||'')}</span></div><div class="summary-line"><span>Estado</span><span id="orderStatus">${escapeHtml(order.order_status)}</span></div><div class="summary-line"><span>Pago</span><span>${escapeHtml(order.payment_status)} · ${escapeHtml(order.payment_method)}</span></div><div class="summary-line"><span>Subtotal + impuestos + envío</span><span>${money(order.subtotal_cop)} + ${money(order.tax_total_cop)} + ${money(order.delivery_fee_cop)}</span></div><div class="summary-line total"><span>Total</span><span>${money(order.total_cop)}</span></div>`;}
 async function sendCommand(){await updateOrderState(`/orders/${order.id}/send-command`,{channel:document.getElementById('sendChannel').value,changed_by:document.getElementById('operator').value.trim()||'Recepcionista'},'Comanda registrada como enviada.');}
@@ -146,7 +216,91 @@ async function confirmLocal(){await updateOrderState(`/orders/${order.id}/confir
 async function noResponse(){await updateOrderState(`/orders/${order.id}/no-response`,{notes:'Aún no responde; requiere seguimiento manual.'},'Sin respuesta. El pedido requiere seguimiento manual.');}
 async function updateOrderState(path,data,message){clearMessage();try{const result=await api(path,{method:'POST',body:JSON.stringify(data)});await loadOrder();showMessage(message,'success');}catch(error){showMessage('No se pudo actualizar el pedido: '+error.message);}}
 async function loadOrder(){if(!order?.id)return;try{const current=await api(`/orders/${order.id}`);order={...order,...current};document.getElementById('orderStatus').textContent=current.order_status;const command=current.command;document.getElementById('sendActions').classList.toggle('hidden',command.command_status!=='PENDIENTE');document.getElementById('responseActions').classList.toggle('hidden',command.command_status!=='ENVIADA');const final=document.getElementById('finalState');if(command.command_status==='CONFIRMADA')final.innerHTML='<div class="notice success">Fin del MVP: el local confirmó la comanda.</div>';else if(command.command_status==='SIN_CONFIRMAR')final.innerHTML='<div class="notice warn">El local todavía no responde. Se requiere seguimiento manual.</div>';else final.innerHTML='';final.classList.toggle('hidden',!final.innerHTML); }catch(error){showMessage('No se pudo consultar el pedido: '+error.message);}}
-loadCatalog();
+
+function invalidateAcceptance(){document.getElementById('accepted').checked=false;document.getElementById('orderBtn').disabled=true;}
+document.getElementById('address').addEventListener('input',invalidateAcceptance);
+function clearSession(){
+  staff=null;csrfToken='';PIZZERIA_ID=null;products=[];zones=[];client=null;clientDraft=null;order=null;quantities={};adminRows=[];
+  document.getElementById('workspace').classList.add('hidden');document.getElementById('staffToolbar').classList.add('hidden');document.getElementById('loginPanel').classList.remove('hidden');
+  document.getElementById('connection').textContent='Sin sesión';document.getElementById('connection').style.color='';
+  ['phone','name','address','operator','loginPassword','staffPassword','currentPassword','newPassword','repeatPassword'].forEach(id=>document.getElementById(id).value='');
+  ['productList','orderCard','adminList','finalState','staffIdentity'].forEach(id=>document.getElementById(id).textContent='');
+  document.getElementById('zone').innerHTML='';document.getElementById('total').textContent='$0';estimatedTotal=0;
+  invalidateAcceptance();document.getElementById('catalogForm').reset();document.getElementById('userForm').reset();
+}
+async function activateSession(data){
+  staff=data.user;csrfToken=data.csrf_token;PIZZERIA_ID=staff.pizzeria_id;
+  document.getElementById('loginPanel').classList.add('hidden');document.getElementById('staffToolbar').classList.remove('hidden');document.getElementById('workspace').classList.remove('hidden');
+  document.getElementById('staffIdentity').textContent=staff.name+' · '+(staff.role==='ADMIN'?'Administrador':'Recepcionista');
+  document.getElementById('adminNav').classList.toggle('hidden',staff.role!=='ADMIN');document.getElementById('operator').value=staff.name;
+  newOrder();openSection('orders');await loadCatalog();
+}
+async function boot(){
+  try{
+    const state=await api('/auth/status');document.getElementById('setupHint').classList.toggle('hidden',state.configured);document.getElementById('loginBtn').disabled=!state.configured;
+    if(!state.configured){document.getElementById('connection').textContent='Configuración inicial';return;}
+    await activateSession(await api('/auth/me'));
+  }catch(error){if(error.status===401){clearSession();}else{showMessage('No se pudo conectar. Inicia la API actualizada y abre http://127.0.0.1:8000. '+error.message);document.getElementById('connection').textContent='Sin conexión';}}
+}
+async function login(event){event.preventDefault();clearMessage();const btn=document.getElementById('loginBtn');btn.disabled=true;
+  try{const data=await api('/auth/login',{method:'POST',body:JSON.stringify({username:document.getElementById('loginUser').value.trim(),password:document.getElementById('loginPassword').value})});document.getElementById('loginPassword').value='';await activateSession(data);}
+  catch(error){showMessage(error.message);document.getElementById('loginPassword').value='';}finally{btn.disabled=false;}
+}
+async function logout(){const btn=document.getElementById('logoutBtn');btn.disabled=true;try{await api('/auth/logout',{method:'POST',body:'{}'});clearSession();clearMessage();}catch(error){showMessage(error.message);}finally{btn.disabled=false;}}
+function openSection(section){if(!staff)return;if(section==='admin'&&staff.role!=='ADMIN')return;clearMessage();['orders','admin','account'].forEach(name=>{document.getElementById(name+'Panel').classList.toggle('hidden',name!==section);document.getElementById(name+'Nav').setAttribute('aria-pressed',String(name===section));});if(section==='admin')loadAdmin(adminResource);}
+function newOrder(){client=null;clientDraft=null;order=null;quantities=Object.fromEntries(products.map(p=>[p.id,0]));['phone','name','address'].forEach(id=>document.getElementById(id).value='');document.getElementById('orderCard').innerHTML='';document.getElementById('finalState').innerHTML='';document.getElementById('finalState').classList.add('hidden');document.getElementById('sendActions').classList.remove('hidden');document.getElementById('responseActions').classList.add('hidden');invalidateAcceptance();renderCatalog();go(1);}
+async function refreshCatalog(){await loadCatalog();}
+function adminNotice(message,type='success'){const box=document.getElementById('adminMessage');box.className='notice '+type;box.textContent=message;}
+function lockAdmin(locked){document.querySelectorAll('#adminPanel button,#adminPanel input').forEach(el=>el.disabled=locked);}
+async function loadAdmin(resource){
+  if(!staff||staff.role!=='ADMIN'||adminLoading||adminSaving)return;adminLoading=true;adminResource=resource;lockAdmin(true);
+  document.getElementById('adminMessage').className='hidden';document.getElementById('adminList').textContent='Cargando...';
+  const labels={products:['Productos','Nuevo producto','Desactivar un producto lo retira del menú sin borrar pedidos anteriores.'],zones:['Zonas y tarifas','Nueva zona','Define el costo de envío que corresponda a cada zona.'],users:['Recepcionistas','Nuevo recepcionista','Solo las cuentas activas pueden iniciar sesión. Desactivar una cuenta cierra sus sesiones.']};
+  document.getElementById('adminTitle').textContent=labels[resource][0];document.getElementById('newEntryBtn').textContent=labels[resource][1];document.getElementById('adminHint').textContent=labels[resource][2];
+  ['products','zones','users'].forEach(name=>document.getElementById(name+'Tab').setAttribute('aria-pressed',String(name===resource)));
+  try{adminRows=await api('/admin/'+resource);renderAdminList();}catch(error){adminRows=[];document.getElementById('adminList').textContent='No se pudo cargar la lista.';adminNotice(error.message,'error');}
+  finally{adminLoading=false;lockAdmin(false);editAdmin(null);}
+}
+function renderAdminList(){
+  const list=document.getElementById('adminList');list.replaceChildren();
+  if(!adminRows.length){list.textContent='Aún no hay registros. Usa el formulario para crear el primero.';return;}
+  adminRows.forEach(row=>{
+    const card=document.createElement('div');card.className='catalog-row';const info=document.createElement('div');const title=document.createElement('strong');title.textContent=catalogLabel(row.name);info.append(title);
+    const detail=document.createElement('p');detail.textContent=adminResource==='products'?money(row.price_cop)+' · impuesto '+row.tax_rate_pct+' %':adminResource==='zones'?'Envío '+money(row.fee_cop):row.username+' · '+(row.role==='ADMIN'?'Administrador':'Recepcionista');info.append(detail);
+    const state=document.createElement('small');state.textContent=row.active?'Activo':'Inactivo';state.className=row.active?'status-active':'status-inactive';info.append(state);card.append(info);
+    if(adminResource!=='users'||row.role==='RECEPTIONIST'){const btn=document.createElement('button');btn.type='button';btn.className='btn';btn.textContent='Editar';btn.setAttribute('aria-label','Editar '+row.name);btn.onclick=()=>editAdmin(row.id);card.append(btn);}
+    list.append(card);
+  });
+}
+function editAdmin(id){
+  const row=id===null?null:adminRows.find(item=>item.id===id);const isUser=adminResource==='users';
+  document.getElementById('catalogForm').classList.toggle('hidden',isUser);document.getElementById('userForm').classList.toggle('hidden',!isUser);
+  if(isUser){
+    document.getElementById('userForm').reset();document.getElementById('staffId').value=row?.id||'';document.getElementById('staffName').value=row?.name||'';document.getElementById('staffUsername').value=row?.username||'';
+    document.getElementById('staffName').readOnly=!!row;document.getElementById('staffUsername').readOnly=!!row;document.getElementById('staffPassword').required=!row;document.getElementById('staffActive').checked=row?!!row.active:true;
+    document.getElementById('staffActiveField').classList.toggle('hidden',!row);document.getElementById('staffPasswordLabel').textContent=row?'Nueva contraseña (opcional)':'Contraseña inicial';document.getElementById('userEditorTitle').textContent=row?'Editar recepcionista':'Nuevo recepcionista';
+  }else{
+    const product=adminResource==='products';document.getElementById('catalogForm').reset();document.getElementById('catalogId').value=row?.id||'';document.getElementById('catalogName').value=row?catalogLabel(row.name):'';
+    document.getElementById('catalogAmount').value=row?(product?row.price_cop:row.fee_cop):'';document.getElementById('catalogAmount').min=product?'1':'0';document.getElementById('catalogTax').value=row?.tax_rate_pct??0;document.getElementById('catalogTax').required=product;document.getElementById('taxField').classList.toggle('hidden',!product);document.getElementById('catalogActive').checked=row?!!row.active:true;
+    document.getElementById('amountLabel').textContent=product?'Precio (COP)':'Tarifa de envío (COP)';document.getElementById('editorTitle').textContent=(row?'Editar ':'Crear ')+(product?'producto':'zona');
+  }
+}
+async function saveCatalog(event){event.preventDefault();if(adminSaving||adminLoading)return;const product=adminResource==='products';const data={name:document.getElementById('catalogName').value.trim(),active:document.getElementById('catalogActive').checked};const id=document.getElementById('catalogId').value;if(id)data.id=Number(id);data[product?'price_cop':'fee_cop']=Number(document.getElementById('catalogAmount').value);if(product)data.tax_rate_pct=Number(document.getElementById('catalogTax').value);
+  adminSaving=true;lockAdmin(true);let saved=false;
+  try{await api('/admin/'+adminResource,{method:'POST',body:JSON.stringify(data)});saved=true;await loadCatalog();}catch(error){adminNotice(error.message,'error');}finally{adminSaving=false;lockAdmin(false);}
+  if(saved){await loadAdmin(adminResource);adminNotice('Cambios guardados. El catálogo de pedidos está actualizado.');}
+}
+async function saveUser(event){event.preventDefault();if(adminSaving||adminLoading)return;const id=document.getElementById('staffId').value;let data;
+  if(id){data={id:Number(id),active:document.getElementById('staffActive').checked};if(document.getElementById('staffPassword').value)data.password=document.getElementById('staffPassword').value;}
+  else data={name:document.getElementById('staffName').value.trim(),username:document.getElementById('staffUsername').value.trim(),password:document.getElementById('staffPassword').value};
+  adminSaving=true;lockAdmin(true);let saved=false;try{await api('/admin/users'+(id?'/update':''),{method:'POST',body:JSON.stringify(data)});saved=true;document.getElementById('staffPassword').value='';}catch(error){adminNotice(error.message,'error');}finally{adminSaving=false;lockAdmin(false);}
+  if(saved){await loadAdmin('users');adminNotice(id?'Cuenta actualizada.':'Recepcionista creado. Ya puede iniciar sesión.');}
+}
+async function changePassword(event){event.preventDefault();clearMessage();if(document.getElementById('newPassword').value!==document.getElementById('repeatPassword').value){showMessage('Las contraseñas nuevas no coinciden.');return;}const btn=document.getElementById('passwordBtn');btn.disabled=true;
+  try{await api('/auth/password',{method:'POST',body:JSON.stringify({current_password:document.getElementById('currentPassword').value,new_password:document.getElementById('newPassword').value})});clearSession();showMessage('Contraseña actualizada. Inicia sesión nuevamente.','success');}catch(error){showMessage(error.message);}finally{btn.disabled=false;}
+}
+boot();
+
 </script>
 </body>
 </html>
