@@ -74,4 +74,4 @@ La aplicación escucha solo en el equipo local. Publicar el código en GitHub no
 
 Las cinco pruebas existentes de pedidos se adaptaron para usar una sesión de personal en una base temporal. No se han ejecutado para esta ampliación ni se han agregado pruebas de autenticación o administración. Los resultados históricos del PDF corresponden a la versión anterior.
 
-El PDF conserva el cierre académico y el presupuesto previamente aprobados; todavía no documenta esta ampliación de cuentas y catálogo. Esta actualización del código no modifica las cifras del informe.
+El PDF documenta el acceso del equipo, la administración y el manual integrado de cinco páginas. Conserva el cierre académico y las cifras de costos aprobadas; identifica esta ampliación como implementada y pendiente de pruebas funcionales.
